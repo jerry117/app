@@ -6,7 +6,7 @@ Example application for flask tutorial
 
 clone:
 ```
-$ git clone https://github.com/helloflask/watchlist.git
+$ git clone https://github.com/jerry117/watchlist.git
 $ cd watchlist
 ```
 create & active virtual enviroment then install dependencies:
