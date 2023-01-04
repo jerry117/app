@@ -64,3 +64,8 @@ def admin(username, password):
 
     db.session.commit() # 提交数据库会话
     click.echo('Done.')
+
+@app.cli.command('say-hello')
+def hello():
+    '''just say hello'''
+    click.echo('hello, human!')

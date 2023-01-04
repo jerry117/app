@@ -19,6 +19,7 @@ werkzeug = "==2.1.2"
 zipp = "==3.8.1"
 
 [dev-packages]
+watchdog = "*"
 
 [requires]
 python_version = "3.8"

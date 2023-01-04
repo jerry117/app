@@ -114,3 +114,6 @@ def logout():
     flash('Goodbye.')
     return redirect(url_for('index')) # 重定向回首页
 
+@app.route('/home/<name>')
+def home(name):
+    return url_for('home', name='jerry',_external=True) #返回完整的URL地址
