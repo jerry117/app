@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash, abort, make_response, json
+from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
@@ -138,10 +138,4 @@ def not_found():
 
 @app.route('/foo')
 def foo():
-    data = {
-        'name': 'jerry',
-        'gender':'male'
-    }
-    response = make_response(json.dumps(data))
-    response.mimetype = 'application/json'
-    return response
+    return jsonify(name='jerry', gender='male')
