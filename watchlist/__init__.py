@@ -12,7 +12,7 @@ if WIN:
 else:
     prefix = 'sqlite:////'
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 # 配置的名称必须是全部大写形式，小写的变量将不会被读取。
 # 使用update（）方法可以一次加载多个值。
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')

@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, abort, make_response, json
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
@@ -117,3 +117,31 @@ def logout():
 @app.route('/home/<name>')
 def home(name):
     return url_for('home', name='jerry',_external=True) #返回完整的URL地址
+
+@app.route('/hello')
+def hello():
+    name = request.args.get('name', 'flask')
+    return f'hello,{name}'
+
+@app.route('/colors/<any(blue,white,red):color>') #如果将<color> 部分替换为any转换器中设置的可选值以外的任意字符，均会获得404错误响应。
+def three_colors(color):
+    return f'{color}'
+
+@app.route('/location')
+def location():
+    # return redirect('http://www.baidu.com') # 重定向写法
+    return redirect(url_for('home', name='tom')) # 重定向到有参数的视图
+
+@app.route('/404')
+def not_found():
+    abort(404)
+
+@app.route('/foo')
+def foo():
+    data = {
+        'name': 'jerry',
+        'gender':'male'
+    }
+    response = make_response(json.dumps(data))
+    response.mimetype = 'application/json'
+    return response
