@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify
+from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
@@ -118,9 +118,12 @@ def logout():
 def home(name):
     return url_for('home', name='jerry',_external=True) #返回完整的URL地址
 
+@app.route('/')
 @app.route('/hello')
 def hello():
-    name = request.args.get('name', 'flask')
+    name = request.args.get('name')
+    if name is None:
+        name = request.cookies.get('name', 'flask') #从cookie中获取name值
     return f'hello,{name}'
 
 @app.route('/colors/<any(blue,white,red):color>') #如果将<color> 部分替换为any转换器中设置的可选值以外的任意字符，均会获得404错误响应。
@@ -138,4 +141,17 @@ def not_found():
 
 @app.route('/foo')
 def foo():
-    return jsonify(name='jerry', gender='male')
+    # data = {'name': 'jerry', 'gender':'male'}
+    # response = make_response(json.dumps(data))
+    # response.mimetype = 'application/json'
+    # return response
+    return jsonify(name='jerry', gender='male'), 404
+
+# HTTP是无状态（stateless）协议
+
+@app.route('/set/<name>')
+def set_cookie(name):
+    response = make_response(redirect(url_for('hello')))
+    response.set_cookie('name', name)
+    return response
+
