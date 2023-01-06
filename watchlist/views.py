@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json
+from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json, session
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
@@ -155,3 +155,7 @@ def set_cookie(name):
     response.set_cookie('name', name)
     return response
 
+@app.route('/login1')
+def logout1():
+    session['logged_in'] = True # 写入session
+    return redirect(url_for('hello'))
