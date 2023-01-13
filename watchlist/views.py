@@ -124,7 +124,12 @@ def hello():
     name = request.args.get('name')
     if name is None:
         name = request.cookies.get('name', 'flask') #从cookie中获取name值
-    return f'hello,{name}'
+        response = f'hello,{name}'
+        if 'logged_in' in session:
+            response += '[Authenticated]'
+        else:
+            response += '[Not Authenticated]'
+    return response
 
 @app.route('/colors/<any(blue,white,red):color>') #如果将<color> 部分替换为any转换器中设置的可选值以外的任意字符，均会获得404错误响应。
 def three_colors(color):
@@ -156,6 +161,25 @@ def set_cookie(name):
     return response
 
 @app.route('/login1')
-def logout1():
+def login1():
     session['logged_in'] = True # 写入session
     return redirect(url_for('hello'))
+
+@app.route('/admin')
+def admin():
+    if 'logged_in' not in session:
+        abort(403)
+    return 'welcome to admin page.'
+
+@app.route('/logout1')
+def logout1():
+    if 'logged_in' in session:
+        session.pop('logged_in')
+    return redirect(url_for('hello'))
+
+# 这四个变量都是代理对象（proxy），即指向真实对象的代理。一般情况下，我 们不需要太关注其中的区别。在某些特定的情况下，如果你需要获取原始对象，可 以对代理对象调用_get_current_object（）方法获取被代理的真实对象。
+# current_app 程序上下文
+# g   程序上下文
+# request  请求上下文
+# session  请求上下文
+
