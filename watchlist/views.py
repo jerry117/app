@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json, session
+from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json, session, g
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
@@ -114,6 +114,9 @@ def logout():
     flash('Goodbye.')
     return redirect(url_for('index')) # 重定向回首页
 
+
+# 下面的代码是demo
+
 @app.route('/home/<name>')
 def home(name):
     return url_for('home', name='jerry',_external=True) #返回完整的URL地址
@@ -121,8 +124,9 @@ def home(name):
 @app.route('/')
 @app.route('/hello')
 def hello():
-    name = request.args.get('name')
-    if name is None:
+    # name = request.args.get('name')
+    response = f'hello,{g.name}'
+    if g.name is None:
         name = request.cookies.get('name', 'flask') #从cookie中获取name值
         response = f'hello,{name}'
         if 'logged_in' in session:
@@ -183,3 +187,7 @@ def logout1():
 # request  请求上下文
 # session  请求上下文
 
+# g的用法
+@app.before_request
+def get_name():
+    g.name = request.args.get('name')
