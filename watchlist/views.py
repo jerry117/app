@@ -191,3 +191,35 @@ def logout1():
 @app.before_request
 def get_name():
     g.name = request.args.get('name')
+
+# 激活上下文。
+# 使用flask run命令启动程序
+# 使用旧的app.run()方法启动程序
+# 使用@app.cli.command()装饰器注册的flask命令时
+# 使用flask shell命令启动python shell时
+
+# 手动激活上下文
+# from app import app
+# from flask import current_app
+# with app.app_context():
+#     current_app.name
+
+# 显示手动激活上下文
+# from app import app
+# from flask import current_app
+# app_ctx = app.app_context()
+# app_ctx.push()
+# current_app.name
+# app_ctx.pop()
+
+# 请求上下文可以通过test_request_context()方法临时创建：
+# from app import app
+# from flask import request
+# with app.test_request_context('/hello'):
+#     request.method
+
+# 上下文钩子
+# @app.teardown_appcontext
+# def teardown_db(exception):
+#     db.close()
+

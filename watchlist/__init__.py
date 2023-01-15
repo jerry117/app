@@ -33,7 +33,7 @@ def load_user(user_id): # 创建用户加载回调函数，接受用户 ID 作�
 login_manager.login_view = 'login' #和@login_required搭配使用，为了让这个重定向操作正确执行，设为我们程序的登录视图端点（函数名）
 # login_manager.login_message = 'Your custom message'
 
-# 对于多个模板内都需要使用的变量，我们可以使用 app.context_processor 装 饰器注册一个模板上下文处理函数
+# 对于多个模板内都需要使用的变量，我们可以使用 app.context_processor 装饰器注册一个模板上下文处理函数
 @app.context_processor
 def inject_user():
     from watchlist.models import User
