@@ -223,3 +223,54 @@ def get_name():
 # def teardown_db(exception):
 #     db.close()
 
+# 返回上一个页面。
+# return redirect(request.referrer or url_for('hello'))
+
+# 返回上一个页面的另外一种写法。
+# from flask import request
+
+# @app.route('/foo')
+# def foo():
+#     return '<h1>foo page</h1><a href="%s">do something and redirect</a>' %url_for('do_something', next=request.full_path)
+
+# @app.route('/bar')
+# def bar():
+#     return '<h1>bar page</h1><a href="%s">do something and redirect</a>' %url_for('do_something', next=request.full_path)
+
+# 通过获取这个next值，然后重定向到对应的路径：
+# return redirect(request.args.get('next')) 
+
+# 需要添加备选项，如果为空就重定向到hello视图：
+# return redirect(request.args.get('next', url_for('hello')))
+
+# 重定向回上一个页面
+# def redirect_back(default='hello', **kwargs):
+#     for target in request.args.get('next'), request.referrer: #for循环独特的写法。
+#         if target:
+#             return redirect(target)
+#     return redirect(url_for(default, **kwargs))
+
+@app.route('/do_something_and_redirect')
+def do_something():
+    return redirect_back()
+
+# 开放重定向漏洞
+# 验证URL安全性
+
+from urllib.parse import urlparse, urljoin
+
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+# 加了验证的重定向回上一个页面
+def redirect_back(default='hello', **kwargs):
+    for target in request.args.get('next'), request.referrer:
+        if not target:
+            continue
+        if is_safe_url(target):
+            return redirect(target)
+    return redirect(url_for(default, **kwargs))
+
+
