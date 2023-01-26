@@ -273,4 +273,16 @@ def redirect_back(default='hello', **kwargs):
             return redirect(target)
     return redirect(url_for(default, **kwargs))
 
+# 显示虚拟文章 
+# from jinja2.utils import generate_lorem_ipsum
+
+# @app.route('/post')
+# def show_post():
+#     post_body = generate_lorem_ipsum(n=2) #生成两段随机文本
+#     return '''<h1>A very long post</h1> <div class="body">%s</div> <button id="load">Load More</button> <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> <script type="text/javascript"> $(function() { $('#load').click(function() { $.ajax({ url: '/more', // 目标URL type: 'get', // 请求方法 success: function(data){ // 返回2XX响应后触发的回调函数 $('.body').append(data); // 将返回的响应插入到页面中 } }) }) })</script>''' % post_body
+
+# 处理/more的视图函数会返回随机文章正文
+# @app.route('/more')
+# def load_post():
+#     return generate_lorem_ipsum(n=1)
 
