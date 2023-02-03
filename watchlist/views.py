@@ -286,3 +286,11 @@ def redirect_back(default='hello', **kwargs):
 # def load_post():
 #     return generate_lorem_ipsum(n=1)
 
+# 使用jinja2提供的escape()函数对用户传入的数据进行转义，为了安全性。
+# from jinja2 import escape
+
+# @app.route('/hello1')
+# def hello1():
+#     name = request.args.get('name')
+#     response = '<h1>Hello, %s!</h1>' % escape(name)
+
