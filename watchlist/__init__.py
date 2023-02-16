@@ -19,6 +19,7 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(app.root_path), os.getenv('DATABASE_FILE', 'data.db'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WTF_CSRF_ENABLED'] = False #来设置是否开启CSRF保护 Flask- WTF会自动在实例化表单类时添加一个包含CSRF令牌值的隐藏字段，字段名为 csrf_token。
+app.config['WTF_I18N_ENABLED'] = False #设置内置错误消息语言为中文
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app) #实例化扩展类
