@@ -19,6 +19,7 @@ werkzeug = "==2.1.2"
 zipp = "==3.8.1"
 flask-wtf = "*"
 wtforms = "*"
+flask-ckeditor = "*"
 
 [dev-packages]
 watchdog = "*"

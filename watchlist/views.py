@@ -1,8 +1,15 @@
+import os
+import uuid
 from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json, session, g
 from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie
+from watchlist.form.forms import UploadForm
+
+#会过滤掉文件名中的非ASCII字符。 但如果文件名完全由非ASCII字符组成，那么会得到一个空文件名
+from werkzeug import secure_filename
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -293,4 +300,24 @@ def redirect_back(default='hello', **kwargs):
 # def hello1():
 #     name = request.args.get('name')
 #     response = '<h1>Hello, %s!</h1>' % escape(name)
+
+# 生成随机文件名
+# def random_filename(filename):
+#     ext = os.path.splitext(filename)[1]
+#     new_filename = uuid.uuid4().hex + ext
+#     return new_filename
+
+# # 处理上传文件
+# @app.route('/upload', method=['GET', 'POST'])
+# def upload():
+#     form = UploadForm()
+#     if form.validate_on_submit():
+#         f = form.photo.data
+#         filename = random_filename(f.filename)
+#         f.save(os.path.join(app.config['UPLOAD_PATH'], filename)) 
+#         flash('Upload success.') 
+#         session['filenames'] = [filename] 
+#         return redirect(url_for('show_images')) 
+#     return render_template('upload.html', form=form)
+
 

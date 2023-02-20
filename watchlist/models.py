@@ -4,6 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from watchlist import db
 
 
+# ORM主要实现了三层映射关 系：
+# 表→Python类。
+# 字段（列）→类属性。 
+# 记录（行）→类实例。
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
@@ -21,3 +27,14 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60))
     year = db.Column(db.String(4))
+
+class Contact(db.Model):
+    __tablename__ = 'contacts'
+    name = db.Column(db.String(100), nullable=False)
+    phone_number = db.Column(db.String(32))
+
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    

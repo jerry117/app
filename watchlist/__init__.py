@@ -4,6 +4,8 @@ import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_ckeditor import CKEditor
+
 
 # SQLite URI compatible
 WIN = sys.platform.startswith('win')
@@ -20,8 +22,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(os.path.dirname(ap
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WTF_CSRF_ENABLED'] = False #来设置是否开启CSRF保护 Flask- WTF会自动在实例化表单类时添加一个包含CSRF令牌值的隐藏字段，字段名为 csrf_token。
 app.config['WTF_I18N_ENABLED'] = False #设置内置错误消息语言为中文
+app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024 #最大长度限制为3M
+app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
 
 db = SQLAlchemy(app)
+ckeditor = CKEditor(app)
 login_manager = LoginManager(app) #实例化扩展类
 
 
