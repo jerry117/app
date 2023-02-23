@@ -47,6 +47,10 @@ def inject_user():
     user = User.query.first()
     return dict(user=user)
 
+# 注册shell上下文处理函数
+# @app.shell_context_processor
+# def make_shell_context():
+#     return dict(db=db, Note=Note) #等同于{'db': db, 'Note': Note}
 
 from watchlist import views, errors, commands
 from watchlist.form.forms import LoginForm
