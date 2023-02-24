@@ -5,6 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_ckeditor import CKEditor
+from flask_migrate import Migrate
 
 
 # SQLite URI compatible
@@ -26,6 +27,7 @@ app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024 #最大长度限制为3M
 app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db) # 在db对象创建后调用
 ckeditor = CKEditor(app)
 login_manager = LoginManager(app) #实例化扩展类
 

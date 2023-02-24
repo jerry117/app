@@ -8,7 +8,7 @@ from watchlist.models import User, Movie
 from watchlist.form.forms import UploadForm
 
 #会过滤掉文件名中的非ASCII字符。 但如果文件名完全由非ASCII字符组成，那么会得到一个空文件名
-from werkzeug import secure_filename
+# from werkzeug import secure_filename
 
 
 

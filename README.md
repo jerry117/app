@@ -41,6 +41,25 @@ test coverage then View a test coverage report:
 
 ```
 
+创建迁移环境
+```
+flask db init
+```
+
+生成迁移脚本
+```
+flask db migrate -m "add note timestamp"
+```
+
+更新数据库
+```
+flask db upgrade
+```
+进行回滚
+```
+flask db downgrade
+```
+
 ## License
 
 This project is licensed under the MIT License (see the

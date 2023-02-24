@@ -30,6 +30,7 @@ class Movie(db.Model):
 
 class Contact(db.Model):
     __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     phone_number = db.Column(db.String(32))
 
@@ -103,3 +104,21 @@ class Capital(db.Model):
     name = db.Column(db.String(30), unique=True)
     country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
     country = db.relationship('Country')
+
+
+# 建立多对多关系 ,关联表不存储数据，只用来存储关系两侧模型的外键对应关系
+association_table = db.Table('association', db.Column('student_id', db.Integer, db.ForeignKey('student.id')),db.Column('teacher_id', db.Integer, db.ForeignKey('teacher.id')))
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(70), unique=True)
+    grade = db.Column(db.String(20))
+    teachers = db.relationship('Teacher', secondary=association_table, back_populates='students')
+
+class Teacher(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(70), unique=True)
+    office = db.Column(db.String(20))
+    students = db.relationship('Student', secondary=association_table, back_populates='teachers')
+
+

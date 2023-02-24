@@ -24,7 +24,7 @@ class HelloForm(MyBaseForm):
     submit = SubmitField()
 
 # 也可以在实例化表单类时通过meta关键字传入locales值
-form = HelloForm(meta={'locales': ['en_US', 'en']})
+# form = HelloForm(meta={'locales': ['en_US', 'en']})
 
 class FortyTwoForm(FlaskForm):
     answer = IntegerField('The Number')

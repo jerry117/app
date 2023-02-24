@@ -20,6 +20,7 @@ zipp = "==3.8.1"
 flask-wtf = "*"
 wtforms = "*"
 flask-ckeditor = "*"
+flask-migrate = "*"
 
 [dev-packages]
 watchdog = "*"
