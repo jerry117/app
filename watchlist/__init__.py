@@ -6,7 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
+from flask_mail import Mail
 
+# SQLite不支持ALTER语 句，而这正是迁移工具依赖的工作机制。
 
 # SQLite URI compatible
 WIN = sys.platform.startswith('win')
@@ -26,11 +28,19 @@ app.config['WTF_I18N_ENABLED'] = False #设置内置错误消息语言为中文
 app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024 #最大长度限制为3M
 app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
 
+# 邮箱的配置
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = ('jerry', os.getenv('MAIL_USERNAME'))
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db) # 在db对象创建后调用
 ckeditor = CKEditor(app)
 login_manager = LoginManager(app) #实例化扩展类
-
+mail = Mail(app)
 
 @login_manager.user_loader
 def load_user(user_id): # 创建用户加载回调函数，接受用户 ID 作为参数
@@ -54,5 +64,5 @@ def inject_user():
 # def make_shell_context():
 #     return dict(db=db, Note=Note) #等同于{'db': db, 'Note': Note}
 
-from watchlist import views, errors, commands
+from watchlist import views, errors, commands, database
 from watchlist.form.forms import LoginForm

@@ -21,6 +21,7 @@ flask-wtf = "*"
 wtforms = "*"
 flask-ckeditor = "*"
 flask-migrate = "*"
+flask-mail = "*"
 
 [dev-packages]
 watchdog = "*"

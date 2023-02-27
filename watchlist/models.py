@@ -122,3 +122,24 @@ class Teacher(db.Model):
     students = db.relationship('Student', secondary=association_table, back_populates='teachers')
 
 
+# 级联操作 一对多关系。文章和评论  cascade通常使用多个组合值， 级联值之间使用逗号分隔。
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    body = db.Column(db.Text)
+    # 当没有设置cascade参数时，会使用默认值save-update、merge。上面的all 等同于除了delete-orphan以外所有可用值的组合，即save-update、merge、 refresh-expire、expunge、delete。
+    comments = db.relationship('Comment', cascade='save-update, merge, delete', back_populates='post')
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    post = db.relationship('Post', back_populates='comments')
+
+# 为了演示监听
+class Draft(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    edit_time = db.Column(db.Integer, default=0)
+
+
