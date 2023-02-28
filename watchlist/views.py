@@ -5,7 +5,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 from watchlist import app, db
 from watchlist.models import User, Movie
-from watchlist.form.forms import UploadForm
+from watchlist.form.forms import UploadForm, SubscribeForm
+from watchlist.email import send_mail
 
 #会过滤掉文件名中的非ASCII字符。 但如果文件名完全由非ASCII字符组成，那么会得到一个空文件名
 # from werkzeug import secure_filename
@@ -320,4 +321,13 @@ def redirect_back(default='hello', **kwargs):
 #         return redirect(url_for('show_images')) 
 #     return render_template('upload.html', form=form)
 
-
+# 发送邮件
+@app.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+    form = SubscribeForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        flash('Welcome on board!')
+        send_mail('Subscribe Successs!', email, 'Hello, thank you for subscribing Flask Weekly!')
+        return redirect(url_for('index'))
+    return render_template('index.html', form=form)

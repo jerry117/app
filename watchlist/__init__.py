@@ -30,8 +30,10 @@ app.config['UPLOAD_PATH'] = os.path.join(app.root_path, 'uploads')
 
 # 邮箱的配置
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
+# app.config['MAIL_PORT'] = 587
+# app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = ('jerry', os.getenv('MAIL_USERNAME'))

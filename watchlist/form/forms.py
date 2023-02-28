@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, MultipleFileField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, MultipleFileField, TextAreaField, EmailField
 from wtforms.validators import DataRequired, Length, ValidationError
 from flask_ckeditor import CKEditorField
 
@@ -79,3 +79,7 @@ class RichTextForm(FlaskForm):
 class NewNoteForm(FlaskForm):
     body = TextAreaField('Body', validators=[DataRequired()])
     submit = SubmitField('Save')
+
+class SubscribeForm(FlaskForm):
+    email = EmailField('Email', validators=[DataRequired()])
+    submit = SubmitField('sendemail')
