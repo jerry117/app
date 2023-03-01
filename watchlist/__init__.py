@@ -21,6 +21,8 @@ else:
     prefix = 'sqlite:////'
 
 app = Flask(__name__, static_url_path='/static')
+# 除了直接写出包名称，你也可以从__name__变量获取包名称
+# print(__name__.split('.')[0])
 # 配置的名称必须是全部大写形式，小写的变量将不会被读取。
 # 使用update（）方法可以一次加载多个值。
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
@@ -71,5 +73,5 @@ def inject_user():
 # def make_shell_context():
 #     return dict(db=db, Note=Note) #等同于{'db': db, 'Note': Note}
 
-from watchlist import views, errors, commands, database
+from watchlist import views, errors, commands, database, email, models, setting
 from watchlist.form.forms import LoginForm

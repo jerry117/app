@@ -335,6 +335,7 @@ def subscribe():
 
 @app.route('/email')
 def email():
-    send_mail('Subscribe Successs!','XXX@qq.com','hello world')
+    data = send_mail('Subscribe Successs!','XXX@qq.com','hello world')
+    print(data)
     return {'code':200}
 
