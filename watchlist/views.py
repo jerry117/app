@@ -331,3 +331,10 @@ def subscribe():
         send_mail('Subscribe Successs!', email, 'Hello, thank you for subscribing Flask Weekly!')
         return redirect(url_for('index'))
     return render_template('index.html', form=form)
+
+
+@app.route('/email')
+def email():
+    send_mail('Subscribe Successs!','XXX@qq.com','hello world')
+    return {'code':200}
+

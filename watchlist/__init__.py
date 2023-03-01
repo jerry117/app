@@ -10,6 +10,9 @@ from flask_mail import Mail
 
 # SQLite不支持ALTER语 句，而这正是迁移工具依赖的工作机制。
 
+# 获取环境变量
+# os.environ.get('HOME')
+
 # SQLite URI compatible
 WIN = sys.platform.startswith('win')
 if WIN:
