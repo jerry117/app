@@ -7,6 +7,9 @@ from flask_login import LoginManager
 from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_debugtoolbar import DebugToolbarExtension
+
+from watchlist.blueprints.auth import auth
 
 # SQLite不支持ALTER语 句，而这正是迁移工具依赖的工作机制。
 
@@ -45,11 +48,14 @@ app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = ('jerry', os.getenv('MAIL_USERNAME'))
 
+app.register_blueprint(auth, url_prefix='/auth')
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db) # 在db对象创建后调用
 ckeditor = CKEditor(app)
 login_manager = LoginManager(app) #实例化扩展类
 mail = Mail(app)
+toolbar = DebugToolbarExtension(app)
 
 @login_manager.user_loader
 def load_user(user_id): # 创建用户加载回调函数，接受用户 ID 作为参数

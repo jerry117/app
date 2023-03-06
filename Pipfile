@@ -22,9 +22,11 @@ wtforms = "*"
 flask-ckeditor = "*"
 flask-migrate = "*"
 flask-mail = "*"
+flask-debugtoolbar = "*"
 
 [dev-packages]
 watchdog = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8"
