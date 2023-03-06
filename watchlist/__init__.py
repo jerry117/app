@@ -8,6 +8,7 @@ from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
 from flask_mail import Mail
 from flask_debugtoolbar import DebugToolbarExtension
+from . import setting
 
 from watchlist.blueprints.auth import auth
 
@@ -49,6 +50,8 @@ app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = ('jerry', os.getenv('MAIL_USERNAME'))
 
 app.register_blueprint(auth, url_prefix='/auth')
+# 子域的写法
+# app.register_blueprint(auth, subdomain='auth')
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db) # 在db对象创建后调用
