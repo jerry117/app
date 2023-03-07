@@ -1,4 +1,4 @@
-# Watchlist
+# app
 
 Example application for flask tutorial
 
