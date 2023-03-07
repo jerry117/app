@@ -1,7 +1,7 @@
 import click
 
-from watchlist import app, db
-from watchlist.models import User, Movie
+from app import app, db
+from app.models import User, Movie
 
 
 @app.cli.command()

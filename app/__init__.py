@@ -10,7 +10,7 @@ from flask_mail import Mail
 from flask_debugtoolbar import DebugToolbarExtension
 from . import setting
 
-from watchlist.blueprints.auth import auth
+from app.blog.auth import auth
 
 # SQLite不支持ALTER语句，而这正是迁移工具依赖的工作机制。
 
@@ -63,7 +63,7 @@ toolbar = DebugToolbarExtension(app)
 
 @login_manager.user_loader
 def load_user(user_id): # 创建用户加载回调函数，接受用户 ID 作为参数
-    from watchlist.models import User # 用 ID 作为 User 模型的 主键查询对应的用户
+    from app.models import User # 用 ID 作为 User 模型的 主键查询对应的用户
     user = User.query.get(int(user_id))
     return user # 返回用户对象
 
@@ -74,7 +74,7 @@ login_manager.login_view = 'login' #和@login_required搭配使用，为了让�
 # 对于多个模板内都需要使用的变量，我们可以使用 app.context_processor 装饰器注册一个模板上下文处理函数
 @app.context_processor
 def inject_user():
-    from watchlist.models import User
+    from app.models import User
     user = User.query.first()
     return dict(user=user)
 
@@ -83,5 +83,5 @@ def inject_user():
 # def make_shell_context():
 #     return dict(db=db, Note=Note) #等同于{'db': db, 'Note': Note}
 
-from watchlist import views, errors, commands, database, email, models, setting
-from watchlist.form.forms import LoginForm
+from app import views, errors, commands, database, email, models, setting
+from app.form.forms import LoginForm

@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
-from watchlist import db
+from app import db
 
 
 # ORM主要实现了三层映射关 系：

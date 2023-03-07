@@ -3,10 +3,10 @@ import uuid
 from flask import render_template, request, url_for, redirect, flash, abort, make_response, jsonify, json, session, g
 from flask_login import login_user, login_required, logout_user, current_user
 
-from watchlist import app, db
-from watchlist.models import User, Movie
-from watchlist.form.forms import UploadForm, SubscribeForm
-from watchlist.email import send_mail
+from app import app, db
+from app.models import User, Movie
+from app.form.forms import UploadForm, SubscribeForm
+from app.email import send_mail
 
 #会过滤掉文件名中的非ASCII字符。 但如果文件名完全由非ASCII字符组成，那么会得到一个空文件名
 # from werkzeug import secure_filename

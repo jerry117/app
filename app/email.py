@@ -1,5 +1,5 @@
 from flask_mail import Message
-from watchlist import mail, app
+from app import mail, app
 from threading import Thread
 
 # 不对邮箱进行加密，邮件服务器的端口使用默认的25端口

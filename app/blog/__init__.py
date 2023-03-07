@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template
-from watchlist.setting import config
-from watchlist.blueprints.auth import auth
-from watchlist.extensions import db, mail, ckeditor
+from app.setting import config
+from app.blog.auth import auth
+from app.extensions import db, mail, ckeditor, toolbar
 
 # 工厂函数 按照惯例，这个函数被命名为 create_app（）或make_app（）。我们把这个工厂函数称为程序工厂
 def create_app(config_name=None):
@@ -31,6 +31,7 @@ def register_extensions(app):
     db.init_app(app)
     ckeditor.init_app(app)
     mail.init_app(app)
+    toolbar.init_app(app)
     
 def register_blueprint(app):
     # app.register_blueprint(blog)

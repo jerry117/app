@@ -1,5 +1,5 @@
-from watchlist.models import Draft
-from watchlist import db
+from app.models import Draft
+from app import db
 
 # 传统的参数接收方法
 @db.event.listens_for(Draft.body, 'set')
