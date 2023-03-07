@@ -1,4 +1,4 @@
-from app.models import Draft
+from app.model import Draft
 from app import db
 
 # 传统的参数接收方法

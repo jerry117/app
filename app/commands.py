@@ -1,7 +1,7 @@
 import click
 
 from app import app, db
-from app.models import User, Movie
+from app.model import User, Movie
 
 
 @app.cli.command()

@@ -4,7 +4,7 @@ from flask import render_template, request, url_for, redirect, flash, abort, mak
 from flask_login import login_user, login_required, logout_user, current_user
 
 from app import app, db
-from app.models import User, Movie
+from app.model import User, Movie
 from app.form.forms import UploadForm, SubscribeForm
 from app.email import send_mail
 
