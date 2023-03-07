@@ -14,25 +14,26 @@ class BaseConfig(object):
     MAIL_USERNAME = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
 
-    MAIL_DEFAULT_SENDER = ('Bluelog Admin', MAIL_USERNAME) 
-    BLUELOG_EMAIL = os.getenv('BLUELOG_EMAIL') 
-    BLUELOG_POST_PER_PAGE = 10 
-    BLUELOG_MANAGE_POST_PER_PAGE = 15 
+    MAIL_DEFAULT_SENDER = ('jerry', MAIL_USERNAME)
+
+    BLUELOG_EMAIL = os.getenv('BLUELOG_EMAIL')
+    BLUELOG_POST_PER_PAGE = 10
+    BLUELOG_MANAGE_POST_PER_PAGE = 15
     BLUELOG_COMMENT_PER_PAGE = 15
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data-dev.db') 
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data-dev.db')
     
 class TestingConfig(BaseConfig):
-    TESTING = True 
-    WTF_CSRF_ENABLED = False 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:' # in-memory database 
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:' # in-memory database
     
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'data.db')) 
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'data.db'))
     
 config = { 
-    'development': DevelopmentConfig, 
-    'testing': TestingConfig, 
-    'production': ProductionConfig 
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig
     }

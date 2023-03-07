@@ -12,7 +12,7 @@ from . import setting
 
 from watchlist.blueprints.auth import auth
 
-# SQLite不支持ALTER语 句，而这正是迁移工具依赖的工作机制。
+# SQLite不支持ALTER语句，而这正是迁移工具依赖的工作机制。
 
 # 获取环境变量
 # os.environ.get('HOME')
@@ -53,6 +53,7 @@ app.register_blueprint(auth, url_prefix='/auth')
 # 子域的写法
 # app.register_blueprint(auth, subdomain='auth')
 
+# 如果我们把实例化操作放 到工厂函数中，那么我们就没有一个全局的扩展对象可以使用，比如表示数据库的 db对象。
 db = SQLAlchemy(app)
 migrate = Migrate(app, db) # 在db对象创建后调用
 ckeditor = CKEditor(app)
