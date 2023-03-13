@@ -83,5 +83,5 @@ def inject_user():
 # def make_shell_context():
 #     return dict(db=db, Note=Note) #等同于{'db': db, 'Note': Note}
 
-from app import views, errors, commands, database, email, models, setting
+from app import views, errors, commands, database, email, model, setting
 from app.form.forms import LoginForm
