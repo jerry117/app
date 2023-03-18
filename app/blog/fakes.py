@@ -8,7 +8,7 @@ fake = Faker()
 # 虚拟管理员
 
 
-def fakeAdmin():
+def fake_admin():
     admin = Admin(username='admin', blog_title='Blog', blgo_sub_title='no, i`m the real thing.',
                   name='mima kirigoe', about='um, l, mima kirigoe, had a fun time as a member of cham...')
     admin.set_password('jerry')

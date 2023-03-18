@@ -1,0 +1,26 @@
+[tool.pdm]
+[[tool.pdm.source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "watchdog",
+    "faker",
+]
+
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "jerryli", email = "614237720@qq.com"},
+]
+dependencies = ["click==8.1.3", "coverage==6.4.2", "flask==2.1.3", "flask-login==0.6.1", "flask-sqlalchemy==2.5.1", "importlib-metadata==4.12.0", "itsdangerous==2.1.2", "jinja2==3.1.2", "markupsafe==2.1.1", "python-dotenv==0.20.0", "sqlalchemy==1.4.39", "werkzeug==2.1.2", "zipp==3.8.1", "flask-wtf", "wtforms", "flask-ckeditor", "flask-migrate", "flask-mail", "flask-debugtoolbar"]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"

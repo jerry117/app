@@ -9,7 +9,8 @@ from app.model import User, Movie
 def initdb(drop):
     """Initialize the database."""
     if drop:
-        click.confirm('This operation will delete the database, do you want to continue?', abort=True)
+        click.confirm(
+            'This operation will delete the database, do you want to continue?', abort=True)
         db.drop_all()
         click.echo('Drop tables.')
     db.create_all()
@@ -57,17 +58,12 @@ def admin(username, password):
     if user is not None:
         click.echo('Updating user...')
         user.username = username
-        user.set_password(password) #设置密码
+        user.set_password(password)  # 设置密码
     else:
         click.echo('Creating user...')
         user = User(username=username, name='Admin')
-        user.set_password(password) #设置密码
+        user.set_password(password)  # 设置密码
         db.session.add(user)
 
-    db.session.commit() # 提交数据库会话
+    db.session.commit()  # 提交数据库会话
     click.echo('Done.')
-
-@app.cli.command('say-hello')
-def hello():
-    '''just say hello'''
-    click.echo('hello, human!')
