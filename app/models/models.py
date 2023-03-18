@@ -1,4 +1,5 @@
 from app.extensions import db
+from datetime import datetime
 
 # 管理员模型
 class Admin(db.Model):
@@ -10,7 +11,36 @@ class Admin(db.Model):
     name = db.Column(db.String(30))
     about = db.Column(db.Text)
 
+# 类目
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
+    posts = db.relationship('Post', back_populates='category')
+
+# 文章
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(60))
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category = db.relationship('Category', back_populates='posts')
+
+# 评论
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(30))
+    email = db.Column(db.String(255))
+    site = db.Column(db.String(255))
+    body = db.Column(db.Text)
+    from_admin = db.Column(db.Boolean, default=False)
+    reviewed = db.Column(db.Boolean, default=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    # 领接列表关系
+    replied_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    replied = db.relationship('Comment', back_populates='replies', remote_side=[id])
+    # 集合关系属性replies中的cascade参数设为all，因为我们期望的效果是，当 父评论被删除时，所有的子评论也随之删除。
+    replies = db.relationship('Comment', back_populates='replied', cascade='all')
+
+
 
