@@ -23,6 +23,7 @@ flask-ckeditor = "*"
 flask-migrate = "*"
 flask-mail = "*"
 flask-debugtoolbar = "*"
+email-validator = "*"
 
 [dev-packages]
 watchdog = "*"
