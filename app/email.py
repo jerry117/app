@@ -1,6 +1,7 @@
 from flask_mail import Message
 from app import mail, app
 from threading import Thread
+from flask import current_app
 
 # 不对邮箱进行加密，邮件服务器的端口使用默认的25端口
 
@@ -9,12 +10,23 @@ from threading import Thread
 #     mail.send(message)
 
 # 异步发送电子邮件
+
+
 def _send_async_mail(app, message):
     with app.app_context():
         mail.send(message)
 
+
 def send_mail(subject, to, body):
     message = Message(subject, recipients=[to], body=body)
+    thr = Thread(target=_send_async_mail, args=[app, message])
+    thr.start()
+    return thr
+
+
+def send_async_mail(subject, to, html):
+    app = current_app._get_current_object()  # 获取被代理的真实对象
+    message = Message(subject, recipients=[to], html=html)
     thr = Thread(target=_send_async_mail, args=[app, message])
     thr.start()
     return thr
