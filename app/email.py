@@ -30,3 +30,4 @@ def send_async_mail(subject, to, html):
     thr = Thread(target=_send_async_mail, args=[app, message])
     thr.start()
     return thr
+
