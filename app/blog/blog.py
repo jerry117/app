@@ -17,13 +17,20 @@ def index(page):
 @blog.route('/about')
 def about():
     return render_template('blog/about.html')
+    # return {'code':200}
 
 
-@blog.route('/category/<inst:category_id>')
+@blog.route('/category/<int:category_id>')
 def show_category(category_id):
     return render_template('blog/category.html')
 
 
 @blog.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def show_post(post_id):
-    return render_template('blog/post.html')
+    post = Post.query.get_or_404(post_id)
+    return render_template('blog/post.html', post=post)
+
+@blog.route('/post/<slug>')
+def show_post(slug):
+    post = Post.query.filter_by(slug=slug).first_or_404()
+    return render_template('post.html', post=post)
