@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request, current_app
-from app.models.models import Post
+from app.models.models import Post, Category, Comment
 
 blog = Blueprint('blog', __name__)
 
@@ -17,18 +17,26 @@ def index(page):
 @blog.route('/about')
 def about():
     return render_template('blog/about.html')
-    # return {'code':200}
 
 
 @blog.route('/category/<int:category_id>')
 def show_category(category_id):
-    return render_template('blog/category.html')
+    category = Category.query.get_or_404(category_id)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['BLUELOG_POST_PER_PAGE']
+    pagination = Post.query.with_parent(category).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)
+    posts = pagination.items
+    return render_template('blog/category.html', category=category, pagination=pagination, posts=posts)
 
 
 @blog.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('blog/post.html', post=post)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['BLUELOG_COMMENT_PER_PAGE']
+    pagination = Comment.query.with_parent(post).order_by(Comment.timestamp.asc()).paginate(page, per_page)
+    comments = pagination.items
+    return render_template('blog/post.html', post=post, pagination=pagination, comments=comments)
 
 @blog.route('/post/<slug>')
 def show_post(slug):

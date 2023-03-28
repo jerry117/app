@@ -3,7 +3,8 @@ from flask import Flask, render_template
 from app.setting import config
 from app.blog.auth import auth
 from app.blog.blog import blog
-from app.extensions import db, mail, ckeditor, toolbar
+from app.blog.admin import admin
+from app.extensions import db, mail, ckeditor, toolbar, login_manager
 import click
 from app.models.models import Admin, Category
 
@@ -37,11 +38,12 @@ def register_extensions(app):
     ckeditor.init_app(app)
     mail.init_app(app)
     toolbar.init_app(app)
+    login_manager.init_app(app)
 
 
 def register_blueprint(app):
     app.register_blueprint(blog, url_prefix='/blog')
-    # app.register_blueprint(admin, url_prefix='/admin')
+    app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(auth, url_prefix='/auth')
 
 
