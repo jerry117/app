@@ -39,6 +39,6 @@ def show_post(post_id):
     return render_template('blog/post.html', post=post, pagination=pagination, comments=comments)
 
 @blog.route('/post/<slug>')
-def show_post(slug):
+def show_post1(slug):
     post = Post.query.filter_by(slug=slug).first_or_404()
     return render_template('post.html', post=post)
