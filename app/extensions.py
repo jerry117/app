@@ -5,6 +5,7 @@ from flask_ckeditor import CKEditor
 # from flask_moment import Moment
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 
 
 # 扩展类实例化
@@ -14,6 +15,7 @@ ckeditor = CKEditor()
 mail = Mail()
 toolbar = DebugToolbarExtension()
 login_manager = LoginManager()
+csrf = CSRFProtect()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -22,6 +24,6 @@ def load_user(user_id):
     return user
 
 login_manager.login_view = 'auth.login'
-# login_manager.login_message = 'Your custom message'
+login_manager.login_message = 'first login'
 login_manager.login_message_category = 'warning'
 

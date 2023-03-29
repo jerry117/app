@@ -1,12 +1,13 @@
 import os
 from flask import Flask, render_template
+from flask_login import current_user
 from app.setting import config
 from app.blog.auth import auth
 from app.blog.blog import blog
 from app.blog.admin import admin
-from app.extensions import db, mail, ckeditor, toolbar, login_manager
+from app.extensions import db, mail, ckeditor, toolbar, login_manager, csrf
 import click
-from app.models.models import Admin, Category
+from app.models.models import Admin, Category, Comment
 
 # 工厂函数 按照惯例，这个函数被命名为 create_app（）或make_app（）。我们把这个工厂函数称为程序工厂
 
@@ -39,6 +40,7 @@ def register_extensions(app):
     mail.init_app(app)
     toolbar.init_app(app)
     login_manager.init_app(app)
+    csrf.init_app(app)
 
 
 def register_blueprint(app):
@@ -58,7 +60,11 @@ def register_template_context(app):
     def make_template_context():
         admin = Admin.query.first()
         categories = Category.query.order_by(Category.name).all()
-        return dict(admin=admin, categories=categories)
+        if current_user.is_authenticated:
+            unread_comments = Comment.query.filter_by(reviewed=False).count()
+        else:
+            unread_comments = None
+        return dict(admin=admin, categories=categories, unread_comments=unread_comments)
 
 
 def register_errors(app):
