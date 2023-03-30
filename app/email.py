@@ -31,3 +31,6 @@ def send_async_mail(subject, to, html):
     thr.start()
     return thr
 
+def send_confirm_email(user, token, to=None): # to是为了兼容更新Email的使用场景
+    send_mail(subject='Email Confirm', to=to or user.email, template='emails/confirm', user=user, token=token)
+

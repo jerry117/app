@@ -1,9 +1,21 @@
 # -*- coding: UTF-8 -*-
-import os
+import os, sys
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+# SQLite URI compatible
+WIN = sys.platform.startswith('win')
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
+
+class Operations:
+    CONFIRM = 'confirm'
+    RESET_PASSWORD = 'reset-password'
+    CHANGE_EMAIL = 'change-email'
 
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
