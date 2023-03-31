@@ -34,3 +34,5 @@ def send_async_mail(subject, to, html):
 def send_confirm_email(user, token, to=None): # to是为了兼容更新Email的使用场景
     send_mail(subject='Email Confirm', to=to or user.email, template='emails/confirm', user=user, token=token)
 
+def send_reset_password_email(user, token):
+    send_mail(subject='Password Reset', to=user.email, template='emails/reset_password', user=user, token=token)
