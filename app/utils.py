@@ -54,7 +54,7 @@ def validate_token(user, token, operation, new_password=None):
     if operation == Operations.CONFIRM:
         user.confirmed = True
     elif operation == Operations.RESET_PASSWORD:
-        user.set_password(new_password)
+        user.set_password(new_password) #设置新密码
     elif operation == Operations.CHANGE_EMAIL:
         new_email = data.get('new_email')
         if new_email is None:

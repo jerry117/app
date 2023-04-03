@@ -7,10 +7,10 @@ from sqlalchemy.sql.expression import func
 
 from app.decorators import confirm_required, permission_required
 from app.extensions import db
-from albumy.forms.main import DescriptionForm, TagForm, CommentForm
-from albumy.model import User, Photo, Tag, Follow, Collect, Comment, Notification
-from app.notifications import push_comment_notification, push_collect_notification
-from app.utils import rename_image, resize_image, redirect_back, flash_errors
+# from app.albumy.forms.main import DescriptionForm, TagForm, CommentForm
+# from app.albumy.model import User, Photo, Tag, Follow, Collect, Comment, Notification
+# from app.notifications import push_comment_notification, push_collect_notification
+# from app.utils import rename_image, resize_image, redirect_back, flash_errors
 
 main = Blueprint('main', __name__)
 

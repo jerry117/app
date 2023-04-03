@@ -2,8 +2,8 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
 from app.email import send_confirm_email
 from flask_login import current_user, login_required, login_user
-from albumy.forms.auth import RegisterForm, LoginForm, ForgetPasswordForm
-from albumy.model import User
+from app.albumy.forms.auth import RegisterForm, LoginForm, ForgetPasswordForm, ResetPasswordForm
+from app.albumy.model import User
 from app.extensions import db
 from app.utils import generate_token, validate_token, redirect_back
 from app.setting import Operations
@@ -93,4 +93,23 @@ def forget_password():
             return redirect(url_for('.login'))
         flash('Invalid email.', 'warning')
         return redirect(url_for('.forget_password'))
+    return render_template('auth/reset_password.html', form=form)
+
+@auth.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data.lower()).first()
+        if user is None:
+            return redirect(url_for('main.index'))
+        if validate_token(user=user, token=token, operation=Operations.RESET_PASSWORD,
+                          new_password=form.password.data):
+            flash('Password updated.', 'success')
+            return redirect(url_for('.login'))
+        else:
+            flash('Invalid or expired link.', 'danger')
+            return redirect(url_for('.forget_password'))
     return render_template('auth/reset_password.html', form=form)

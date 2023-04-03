@@ -18,6 +18,7 @@ class Operations:
     CHANGE_EMAIL = 'change-email'
 
 class BaseConfig(object):
+    ALBUMY_ADMIN_EMAIL = os.getenv('ALBUMY_ADMIN', 'XXX@163.com')
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.getenv('MAIL_SERVER')
@@ -32,6 +33,13 @@ class BaseConfig(object):
     BLUELOG_POST_PER_PAGE = 10
     BLUELOG_MANAGE_POST_PER_PAGE = 15
     BLUELOG_COMMENT_PER_PAGE = 15
+
+    DROPZONE_ALLOWED_FILE_TYPE = 'image'
+    DROPZONE_MAX_FILE_SIZE = 3
+    DROPZONE_MAX_FILES = 30
+    DROPZONE_ENABLE_CSRF = True
+
+    MAX_CONTENT_LENGTH = 3 * 1024 * 1024  # file size exceed to 3 Mb will return a 413 error response.
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data-dev.db')

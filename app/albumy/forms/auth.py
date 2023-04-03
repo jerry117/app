@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 
-from albumy.model import User
+from app.albumy.model import User
 
 class RegisterForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 30)])
@@ -34,3 +34,11 @@ class LoginForm(FlaskForm):
 class ForgetPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Length(1, 254), Email()])
     submit = SubmitField()
+
+class ResetPasswordForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Length(1, 254), Email()])
+    password = PasswordField('Password', validators=[
+        DataRequired(), Length(8, 128), EqualTo('password2')])
+    password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    submit = SubmitField()
+

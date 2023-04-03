@@ -2,9 +2,9 @@ import os
 from flask import Flask, render_template
 from flask_login import current_user
 from app.setting import config
-from app.blog.auth import auth
-from app.blog.blog import blog
-from app.blog.admin import admin
+# from app.blog.auth import auth
+# from app.blog.blog import blog
+# from app.blog.admin import admin
 from app.extensions import db, mail, ckeditor, toolbar, login_manager, csrf
 import click
 from app.models.models import Admin, Category, Comment

@@ -62,6 +62,15 @@ requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 summary = "Fast, simple object-to-object and broadcast signaling"
 
 [[package]]
+name = "bootstrap-flask"
+version = "2.2.0"
+summary = "Bootstrap 4 & 5 helper for your Flask projects."
+dependencies = [
+    "Flask",
+    "WTForms",
+]
+
+[[package]]
 name = "certifi"
 version = "2022.12.7"
 requires_python = ">=3.6"
@@ -234,6 +243,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "flask-avatars"
+version = "0.2.2"
+summary = "All avatar generators in one place."
+dependencies = [
+    "Flask",
+    "Pillow",
+]
+
+[[package]]
 name = "flask-ckeditor"
 version = "0.4.6"
 summary = "CKEditor integration for Flask."
@@ -251,6 +269,14 @@ dependencies = [
     "Flask>=0.8",
     "itsdangerous",
     "werkzeug",
+]
+
+[[package]]
+name = "flask-dropzone"
+version = "1.6.0"
+summary = "Upload files in Flask with Dropzone.js."
+dependencies = [
+    "Flask",
 ]
 
 [[package]]
@@ -284,6 +310,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "flask-moment"
+version = "1.0.5"
+requires_python = ">=3.6"
+summary = "Formatting of dates and times in Flask templates using moment.js."
+dependencies = [
+    "Flask",
+    "packaging>=14.1",
+]
+
+[[package]]
 name = "flask-sqlalchemy"
 version = "2.5.1"
 requires_python = ">= 2.7, != 3.0.*, != 3.1.*, != 3.2.*, != 3.3.*"
@@ -291,6 +327,16 @@ summary = "Adds SQLAlchemy support to your Flask application."
 dependencies = [
     "Flask>=0.10",
     "SQLAlchemy>=0.8.0",
+]
+
+[[package]]
+name = "flask-whooshee"
+version = "0.8.2"
+summary = "Flask-SQLAlchemy - Whoosh Integration"
+dependencies = [
+    "Flask-Sqlalchemy",
+    "Whoosh",
+    "blinker",
 ]
 
 [[package]]
@@ -398,6 +444,12 @@ name = "multidict"
 version = "6.0.4"
 requires_python = ">=3.7"
 summary = "multidict implementation"
+
+[[package]]
+name = "packaging"
+version = "23.0"
+requires_python = ">=3.7"
+summary = "Core utilities for Python packages"
 
 [[package]]
 name = "parsimonious"
@@ -563,6 +615,11 @@ requires_python = ">=3.7"
 summary = "The comprehensive WSGI web application library."
 
 [[package]]
+name = "whoosh"
+version = "2.7.4"
+summary = "Fast, pure-Python full text indexing, search, and spell checking library."
+
+[[package]]
 name = "wtforms"
 version = "3.0.1"
 requires_python = ">=3.7"
@@ -589,7 +646,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da05f646a"
+content_hash = "sha256:7c38086e4eab508fdc4341f45c9f7006f381dc3de25755c1821347eb9be82173"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -789,6 +846,10 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
 "blinker 1.5" = [
     {url = "https://files.pythonhosted.org/packages/2b/12/82786486cefb68685bb1c151730f510b0f4e5d621d77f245bc0daf9a6c64/blinker-1.5.tar.gz", hash = "sha256:923e5e2f69c155f2cc42dafbbd70e16e3fde24d2d4aa2ab72fbe386238892462"},
     {url = "https://files.pythonhosted.org/packages/30/41/caa5da2dbe6d26029dfe11d31dfa8132b4d6d30b6d6b61a24824075a5f06/blinker-1.5-py2.py3-none-any.whl", hash = "sha256:1eb563df6fdbc39eeddc177d953203f99f097e9bf0e2b8f9f3cf18b6ca425e36"},
+]
+"bootstrap-flask 2.2.0" = [
+    {url = "https://files.pythonhosted.org/packages/28/db/2154891a7775b7f36ddd27ed494b4fbf7641a91c0db89ff8eb7954981a24/Bootstrap-Flask-2.2.0.tar.gz", hash = "sha256:40f3bf7d5802e429b2fca286a548bdde816c1185c28aa8df3051cff35cd05cac"},
+    {url = "https://files.pythonhosted.org/packages/40/46/ea38e084a3ad2c69e878864cca69a887126900a1f7760252a1eb4be7406a/Bootstrap_Flask-2.2.0-py2.py3-none-any.whl", hash = "sha256:b1fd9be1d22f4f1714a8a596ea2a4a5db9c957ba6db4aea4cb38ae90555233f3"},
 ]
 "certifi 2022.12.7" = [
     {url = "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
@@ -1070,6 +1131,10 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
     {url = "https://files.pythonhosted.org/packages/5b/77/3accd62b8771954e9584beb03f080385b32ddcad30009d2a4fe4068a05d9/Flask-2.1.3.tar.gz", hash = "sha256:15972e5017df0575c3d6c090ba168b6db90259e620ac8d7ea813a396bad5b6cb"},
     {url = "https://files.pythonhosted.org/packages/af/6a/00d144ac1626fbb44c4ff36519712e258128985a5d0ae43344778ae5cbb9/Flask-2.1.3-py3-none-any.whl", hash = "sha256:9013281a7402ad527f8fd56375164f3aa021ecfaff89bfe3825346c24f87e04c"},
 ]
+"flask-avatars 0.2.2" = [
+    {url = "https://files.pythonhosted.org/packages/6f/af/22fa0d17f1c3475ae0d6de9134e101ae134b9d713070bb68b4921fda0ebe/Flask_Avatars-0.2.2-py2.py3-none-any.whl", hash = "sha256:e49e9a333b76fb131f4b66c1221b505ab9b3dd0e47a27d6a23e5d24dd2fcb7b2"},
+    {url = "https://files.pythonhosted.org/packages/72/23/972546d28b50032e81e260cc50ca34166aca2cabc6df8b6fac06564d887b/Flask-Avatars-0.2.2.tar.gz", hash = "sha256:c83081641ee834063416d9437be7d947cdebac51125c5f561d75e7e60f14b21b"},
+]
 "flask-ckeditor 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/11/01/f956696905746032618287f20bb984608b14293438cd35a55b5de1c710d8/Flask-CKEditor-0.4.6.tar.gz", hash = "sha256:4b6aa0e831616b86c8c393cb1e5dcae8f62c66c16ef4316071dc7ccf77d4c9a1"},
     {url = "https://files.pythonhosted.org/packages/a1/52/ee973ac6615e9e252bf2f8f31ac2436123ebe507abc96f10bb501633becc/Flask_CKEditor-0.4.6-py2.py3-none-any.whl", hash = "sha256:aa95bf2fab8d4379fcbe5786310bb4fbae467016ed0149c407101e0e4c278fa8"},
@@ -1077,6 +1142,10 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
 "flask-debugtoolbar 0.13.1" = [
     {url = "https://files.pythonhosted.org/packages/5d/a3/fb5f6fd765ba566f09fb736bcb7be99774106389d24f1ac5506866f507dd/Flask_DebugToolbar-0.13.1-py3-none-any.whl", hash = "sha256:491c737f321830c06a2835784acf1fc8488fd257a0ef318810b3b6bed5f600d5"},
     {url = "https://files.pythonhosted.org/packages/cf/75/6891fdfeed6c6c8ca8af5d90c772e856c590312ce68c491c6aac09a30b00/Flask-DebugToolbar-0.13.1.tar.gz", hash = "sha256:0c26aa013a9813b8886857bf0ec24d28ab494114a264baf06c951cadc4dd0dae"},
+]
+"flask-dropzone 1.6.0" = [
+    {url = "https://files.pythonhosted.org/packages/71/9a/dabab96e5df84b445df8e098714f6c05600e19ea4a53e20181e8800de21c/Flask_Dropzone-1.6.0-py2.py3-none-any.whl", hash = "sha256:41242ea2bcdb6059dc56bbaefbbf4a3d5e49e2fa10ea3766cb42f67f671af75b"},
+    {url = "https://files.pythonhosted.org/packages/dc/c1/17146af35bd74084163511b7349f0f3241f40105a497782f179f891113bf/Flask-Dropzone-1.6.0.tar.gz", hash = "sha256:9557ce16b07a5c0f4c334c0c9713ca1f0672e55c64aefe6bc055c5e2e391177c"},
 ]
 "flask-login 0.6.1" = [
     {url = "https://files.pythonhosted.org/packages/3c/0a/e376d599eb6a8999b803a8d390e32451e43a346dbe540350dad48be0069c/Flask-Login-0.6.1.tar.gz", hash = "sha256:1306d474a270a036d6fd14f45640c4d77355e4f1c67ca4331b372d3448997b8c"},
@@ -1089,9 +1158,16 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
     {url = "https://files.pythonhosted.org/packages/a9/70/1286459e3dac091dbe9d7101973ac97eec5c2e0508e276e21f492fb7edf8/Flask-Migrate-4.0.4.tar.gz", hash = "sha256:73293d40b10ac17736e715b377e7b7bde474cb8105165d77474df4c3619b10b3"},
     {url = "https://files.pythonhosted.org/packages/e4/65/9e0a6ce67e1776b0d8a4ebcd40ee519b6c8339a62b05dbc9b153c0d6a17b/Flask_Migrate-4.0.4-py3-none-any.whl", hash = "sha256:77580f27ab39bc68be4906a43c56d7674b45075bc4f883b1d0b985db5164d58f"},
 ]
+"flask-moment 1.0.5" = [
+    {url = "https://files.pythonhosted.org/packages/5b/db/3fbc023b087ec95d04991bd053e92702b92a24968cc9935598a8f7045832/Flask-Moment-1.0.5.tar.gz", hash = "sha256:33307ecd4af8290b6df6a9828ff55ac0977d0567817f9bc0f69803d22ed2b55c"},
+    {url = "https://files.pythonhosted.org/packages/e9/eb/81f428a502f2e1beee710ed3937d05e6c1a64e192a2dd7d7ccb12c96f8f5/Flask_Moment-1.0.5-py3-none-any.whl", hash = "sha256:6e7b3eef89e2137bbbee975405f241a68a44edfa34bf052c92d84364992adca6"},
+]
 "flask-sqlalchemy 2.5.1" = [
     {url = "https://files.pythonhosted.org/packages/26/2c/9088b6bd95bca539230bbe9ad446737ed391aab9a83aff403e18dded3e75/Flask_SQLAlchemy-2.5.1-py2.py3-none-any.whl", hash = "sha256:f12c3d4cc5cc7fdcc148b9527ea05671718c3ea45d50c7e732cceb33f574b390"},
     {url = "https://files.pythonhosted.org/packages/35/f0/39dd2d8e7e5223f78a5206d7020dc0e16718a964acfb3564d89e9798ab9b/Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
+]
+"flask-whooshee 0.8.2" = [
+    {url = "https://files.pythonhosted.org/packages/3d/be/12378e03f5a1a916d5a573fc63525a06f984618602954015a3aaa1c417e3/flask-whooshee-0.8.2.tar.gz", hash = "sha256:b1253a4d84020e557cb363944f271e83e6d67dabc8c345ff48a9e7403ae1bd5e"},
 ]
 "flask-wtf 1.1.1" = [
     {url = "https://files.pythonhosted.org/packages/80/55/5114035eb8f6200fbe838a4b9828409ac831408c4591bf7875aed299d5f8/Flask-WTF-1.1.1.tar.gz", hash = "sha256:41c4244e9ae626d63bed42ae4785b90667b885b1535d5a4095e1f63060d12aa9"},
@@ -1434,6 +1510,10 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
     {url = "https://files.pythonhosted.org/packages/fc/54/8e025ae4e31d899e4528a570941eb7048512392b454acccf69c2dccfcb0d/multidict-6.0.4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:eeb6dcc05e911516ae3d1f207d4b0520d07f54484c49dfc294d6e7d63b734171"},
     {url = "https://files.pythonhosted.org/packages/fc/5b/0a4205a1248fb152f596a03c971c6ef1585d0c98e56b6886dc35d084e366/multidict-6.0.4-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:7d18748f2d30f94f498e852c67d61261c643b349b9d2a581131725595c45ec6c"},
     {url = "https://files.pythonhosted.org/packages/fe/0c/8469202f8f4b0e65816f91c3febc4bda7316c995b59ecdf3b15c574f7a24/multidict-6.0.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cc8e1d0c705233c5dd0c5e6460fbad7827d5d36f310a0fadfd45cc3029762258"},
+]
+"packaging 23.0" = [
+    {url = "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+    {url = "https://files.pythonhosted.org/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
 ]
 "parsimonious 0.9.0" = [
     {url = "https://files.pythonhosted.org/packages/ad/03/2d8d0ac1c3107945956bcef379ae11b4ecd7898147f1719911e7684afca1/parsimonious-0.9.0.tar.gz", hash = "sha256:b2ad1ae63a2f65bd78f5e0a8ac510a98f3607a43f1db2a8d46636a5d9e4a30c1"},
@@ -1859,6 +1939,11 @@ content_hash = "sha256:eba36cc2f66b82a070ddc7cd3c6c7895e148e088ec1213003d83a23da
 "werkzeug 2.1.2" = [
     {url = "https://files.pythonhosted.org/packages/10/cf/97eb1a3847c01ae53e8376bc21145555ac95279523a935963dc8ff96c50b/Werkzeug-2.1.2.tar.gz", hash = "sha256:1ce08e8093ed67d638d63879fd1ba3735817f7a80de3674d293f5984f25fb6e6"},
     {url = "https://files.pythonhosted.org/packages/c4/44/f50f2d22cdfb6d56c03d1b4cc3cfa03ebee2f21b59a7768f151e43415ba5/Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
+]
+"whoosh 2.7.4" = [
+    {url = "https://files.pythonhosted.org/packages/25/2b/6beed2107b148edc1321da0d489afc4617b9ed317ef7b72d4993cad9b684/Whoosh-2.7.4.tar.gz", hash = "sha256:7ca5633dbfa9e0e0fa400d3151a8a0c4bec53bd2ecedc0a67705b17565c31a83"},
+    {url = "https://files.pythonhosted.org/packages/ba/19/24d0f1f454a2c1eb689ca28d2f178db81e5024f42d82729a4ff6771155cf/Whoosh-2.7.4-py2.py3-none-any.whl", hash = "sha256:aa39c3c3426e3fd107dcb4bde64ca1e276a65a889d9085a6e4b54ba82420a852"},
+    {url = "https://files.pythonhosted.org/packages/cc/b6/b8c5596ce96cc14af4e267db767533a72ba08dd04f8fa1f54cd14ba13133/Whoosh-2.7.4.zip", hash = "sha256:e0857375f63e9041e03fedd5b7541f97cf78917ac1b6b06c1fcc9b45375dda69"},
 ]
 "wtforms 3.0.1" = [
     {url = "https://files.pythonhosted.org/packages/9a/7d/d4aa68f5bfcb91dd61a7faf0e862512ae7b3d531c41f24c217910aec0559/WTForms-3.0.1.tar.gz", hash = "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc"},

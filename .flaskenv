@@ -1,7 +1,7 @@
 FLASK_ENV=development
 # FLASK_ENV=production
-FLASK_APP=app/blog
-# FLASK_APP=app/blog:create_app('development')
+FLASK_APP=app/albumy
+# FLASK_APP=app/albumy:create_app('development')
 # FLASK_APP=app
 FLASK_RUN_HOST=0.0.0.0
 FLASK_RUN_PORT=5000
