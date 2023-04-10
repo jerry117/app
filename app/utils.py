@@ -1,6 +1,7 @@
+import os
 import re
 from unidecode import unidecode
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, flash
 from urllib.parse import urlparse, urljoin
 from flask import current_app
 from itsdangerous import URLSafeTimedSerializer as Serializer
@@ -8,6 +9,9 @@ from itsdangerous import SignatureExpired, BadSignature
 from app.extensions import db
 from app.albumy.model import User
 from app.setting import Operations
+import uuid
+import PIL
+from PIL import Image
 
 _punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 
@@ -40,6 +44,25 @@ def generate_token(user, operation, expire_in=None, **kwargs):
     data.update(**kwargs)
     return s.dumps(data)
 
+def rename_image(old_filename):
+    ext = os.path.splitext(old_filename)[1]
+    new_filename = uuid.uuid4().hex + ext
+    return new_filename
+
+def resize_image(image, filename, base_width):
+    filename, ext = os.path.splitext(filename)
+    img = Image.open(image)
+    if img.size[0] <= base_width:
+        return filename + ext
+    w_percent = (base_width / float(img.size[0]))
+    h_size = int((float(img.size[1]) * float(w_percent)))
+    img = img.resize((base_width, h_size), PIL.Image.ANTIALIAS)
+
+    filename += current_app.config['ALBUMY_PHOTO_SUFFIX'][base_width] + ext
+    img.save(os.path.join(current_app.config['ALBUMY_UPLOAD_PATH'], filename), optimize=True, quality=85)
+    return filename
+
+
 def validate_token(user, token, operation, new_password=None):
     s = Serializer(current_app.config['SECRET_KEY'])
 
@@ -67,6 +90,14 @@ def validate_token(user, token, operation, new_password=None):
 
     db.session.commit()
     return True
+
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+                getattr(form, field).label.text,
+                error
+            ))
 
 if __name__ == "__main__":
     # print(slugify(u'领奖大哥'))

@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app.extensions import db, whooshee
 from flask import current_app
 from flask_avatars import Identicon
+import os
 
 # relationship object
 class Follow(db.Model):
@@ -31,6 +32,13 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', back_populates='author', cascade='all')
     role = db.relationship('Role', back_populates='users')
     photos = db.relationship('Photo', back_populates='author', cascade='all')
+    notifications = db.relationship('Notification', back_populates='receiver', cascade='all')
+    avatar_raw = db.Column(db.String(64))
+
+    receive_comment_notification = db.Column(db.Boolean, default=True)
+    receive_follow_notification = db.Column(db.Boolean, default=True)
+    receive_collect_notification = db.Column(db.Boolean, default=True)
+    show_collections = db.Column(db.Boolean, default=True)
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -51,6 +59,20 @@ class User(db.Model, UserMixin):
             follow = Follow(follower=self, followed=user)
             db.session.add(follow)
             db.session.commit()
+
+    def unfollow(self, user):
+        follow = self.following.filter_by(followed_id=user.id).first()
+        if follow:
+            db.session.delete(follow)
+            db.session.commit()
+
+    def is_following(self, user):
+        if user.id is None:  # when follow self, user.id will be None
+            return False
+        return self.following.filter_by(followed_id=user.id).first() is not None
+
+    def is_followed_by(self, user):
+        return self.followers.filter_by(follower_id=user.id).first() is not None
         
     def generate_avatar(self):
         avatar = Identicon()
@@ -58,6 +80,31 @@ class User(db.Model, UserMixin):
         self.avatar_s = filenames[0]
         self.avatar_m = filenames[1]
         self.avatar_l = filenames[2]
+        db.session.commit()
+
+    def collect(self, photo):
+        if not self.is_collecting(photo):
+            collect = Collect(collector=self, collected=photo)
+            db.session.add(collect)
+            db.session.commit()
+
+    def uncollect(self, photo):
+        collect = Collect.query.with_parent(self).filter_by(collected_id=photo.id).first()
+        if collect:
+            db.session.delete(collect)
+            db.session.commit()
+
+    def is_collecting(self, photo):
+        return Collect.query.with_parent(self).filter_by(collected_id=photo.id).first() is not None
+    
+    def lock(self):
+        self.locked = True
+        self.role = Role.query.filter_by(name='Locked').first()
+        db.session.commit()
+
+    def unlock(self):
+        self.locked = False
+        self.role = Role.query.filter_by(name='User').first()
         db.session.commit()
     
     @property
@@ -175,3 +222,23 @@ class Collect(db.Model):
 
     collector = db.relationship('User', back_populates='collections', lazy='joined')
     collected = db.relationship('Photo', back_populates='collectors', lazy='joined')
+
+
+@db.event.listens_for(User, 'after_delete', named=True)
+def delete_avatars(**kwargs):
+    target = kwargs['target']
+    for filename in [target.avatar_s, target.avatar_m, target.avatar_l, target.avatar_raw]:
+        if filename is not None:  # avatar_raw may be None
+            path = os.path.join(current_app.config['AVATARS_SAVE_PATH'], filename)
+            if os.path.exists(path):  # not every filename map a unique file
+                os.remove(path)
+
+
+@db.event.listens_for(Photo, 'after_delete', named=True)
+def delete_photos(**kwargs):
+    target = kwargs['target']
+    for filename in [target.filename, target.filename_s, target.filename_m]:
+        path = os.path.join(current_app.config['ALBUMY_UPLOAD_PATH'], filename)
+        if os.path.exists(path):  # not every filename map a unique file
+            os.remove(path)
+

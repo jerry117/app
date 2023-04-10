@@ -5,11 +5,11 @@ from flask import Flask, render_template
 from flask_login import current_user
 from flask_wtf.csrf import CSRFError
 
-# from albumy.bp.admin import admin
-# from albumy.bp.ajax import ajax
+# from app.albumy.bp.admin import admin
+from app.albumy.bp.ajax import ajax
 from app.albumy.bp.auth import auth
 from app.albumy.bp.main import main
-# from albumy.bp.user import user
+from app.albumy.bp.user import user
 from app.extensions import bootstrap, db, login_manager, mail, dropzone, moment, whooshee, avatars, csrf
 from app.albumy.model import Role, User, Photo, Tag, Follow, Notification, Comment, Collect, Permission
 from app.setting import config
@@ -45,10 +45,10 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(main)
-    # app.register_blueprint(user, url_prefix='/user')
+    app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(auth, url_prefix='/auth')
     # app.register_blueprint(admin, url_prefix='/admin')
-    # app.register_blueprint(ajax, url_prefix='/ajax')
+    app.register_blueprint(ajax, url_prefix='/ajax')
 
 def register_shell_context(app):
     @app.shell_context_processor
