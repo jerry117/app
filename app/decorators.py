@@ -29,3 +29,6 @@ def permission_required(permission_name):
             return func(*args, **kwargs)
         return decorated_function
     return decorator
+
+def admin_required(func):
+    return permission_required('ADMINISTER')(func)
