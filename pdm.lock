@@ -260,6 +260,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "flask-cors"
+version = "3.0.10"
+summary = "A Flask extension adding a decorator for CORS support"
+dependencies = [
+    "Flask>=0.9",
+    "Six",
+]
+
+[[package]]
 name = "flask-debugtoolbar"
 version = "0.13.1"
 requires_python = ">=2.7"
@@ -646,7 +655,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:7c38086e4eab508fdc4341f45c9f7006f381dc3de25755c1821347eb9be82173"
+content_hash = "sha256:8ad1e29312b99c6a4f8abf591499e0c737ce8c8a2d3d9a7b4ab201edc1213c1e"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -1138,6 +1147,10 @@ content_hash = "sha256:7c38086e4eab508fdc4341f45c9f7006f381dc3de25755c1821347eb9
 "flask-ckeditor 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/11/01/f956696905746032618287f20bb984608b14293438cd35a55b5de1c710d8/Flask-CKEditor-0.4.6.tar.gz", hash = "sha256:4b6aa0e831616b86c8c393cb1e5dcae8f62c66c16ef4316071dc7ccf77d4c9a1"},
     {url = "https://files.pythonhosted.org/packages/a1/52/ee973ac6615e9e252bf2f8f31ac2436123ebe507abc96f10bb501633becc/Flask_CKEditor-0.4.6-py2.py3-none-any.whl", hash = "sha256:aa95bf2fab8d4379fcbe5786310bb4fbae467016ed0149c407101e0e4c278fa8"},
+]
+"flask-cors 3.0.10" = [
+    {url = "https://files.pythonhosted.org/packages/cf/25/e3b2553d22ed542be807739556c69621ad2ab276ae8d5d2560f4ed20f652/Flask-Cors-3.0.10.tar.gz", hash = "sha256:b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"},
+    {url = "https://files.pythonhosted.org/packages/db/84/901e700de86604b1c4ef4b57110d4e947c218b9997adf5d38fa7da493bce/Flask_Cors-3.0.10-py2.py3-none-any.whl", hash = "sha256:74efc975af1194fc7891ff5cd85b0f7478be4f7f59fe158102e91abb72bb4438"},
 ]
 "flask-debugtoolbar 0.13.1" = [
     {url = "https://files.pythonhosted.org/packages/5d/a3/fb5f6fd765ba566f09fb736bcb7be99774106389d24f1ac5506866f507dd/Flask_DebugToolbar-0.13.1-py3-none-any.whl", hash = "sha256:491c737f321830c06a2835784acf1fc8488fd257a0ef318810b3b6bed5f600d5"},
