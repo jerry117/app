@@ -69,11 +69,9 @@ class ItemAPI(MethodView):
         return '', 204
     
 api_v1.add_url_rule('/', view_func=IndexAPI.as_view('index'), methods=['GET'])
-api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
-api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
-api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
-api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'),
-                    methods=['GET', 'PUT', 'PATCH', 'DELETE'])
-api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'), methods=['GET'])
-api_v1.add_url_rule('/user/items/completed', view_func=CompletedItemsAPI.as_view('completed_items'),
-                    methods=['GET', 'DELETE'])
+# api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
+# api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
+# api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
+# api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'), methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+# api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'), methods=['GET'])
+# api_v1.add_url_rule('/user/items/completed', view_func=CompletedItemsAPI.as_view('completed_items'), methods=['GET', 'DELETE'])
