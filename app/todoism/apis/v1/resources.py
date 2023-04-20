@@ -2,7 +2,7 @@ from flask import jsonify, request, current_app, url_for, g
 from flask.views import MethodView
 
 from app.todoism.apis.v1 import api_v1
-from app.todoism.apis.v1.auth import auth_required
+from app.todoism.apis.v1.auth import auth_required, generate_token
 from app.todoism.apis.v1.errors import api_abort, ValidationError
 from app.extensions import db
 from app.todoism.models import User, Item
@@ -68,8 +68,33 @@ class ItemAPI(MethodView):
         db.session.commit()
         return '', 204
     
+class AuthTokenAPI(MethodView):
+    def post(self):
+        grant_type = request.form.get('grant_type')
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        if grant_type is None or grant_type.lower() != 'password':
+            return api_abort(code=400, message='The grant type must be password.')
+
+        user = User.query.filter_by(username=username).first()
+        if user is None or not user.validate_password(password):
+            return api_abort(code=400, message='Either the username or password was invalid.')
+
+        token, expiration = generate_token(user)
+
+        response = jsonify({
+            'access_token': token,
+            'token_type': 'Bearer',
+            'expires_in': expiration
+        })
+        response.headers['Cache-Control'] = 'no-store'
+        response.headers['Pragma'] = 'no-cache'
+        return response
+
+    
 api_v1.add_url_rule('/', view_func=IndexAPI.as_view('index'), methods=['GET'])
-# api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
+api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
 # api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
 # api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
 # api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'), methods=['GET', 'PUT', 'PATCH', 'DELETE'])

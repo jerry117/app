@@ -4,8 +4,39 @@ from flask import g, current_app, request
 from itsdangerous import URLSafeTimedSerializer as Serializer, BadSignature, SignatureExpired
 
 from app.todoism.apis.v1.errors import api_abort, invalid_token, token_missing
-# from app.todoism.models import User
+from app.todoism.models import User
 
+def generate_token(user):
+    expiration = 3600
+    s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
+    token = s.dumps({'id': user.id}).decode('ascii')
+    return token, expiration
+
+def get_token():
+    # Flask/Werkzeug do not recognize any authentication types
+    # other than Basic or Digest, so here we parse the header by hand.
+    if 'Authorization' in request.headers:
+        try:
+            token_type, token = request.headers['Authorization'].split(None, 1)
+        except ValueError:
+            # The Authorization header is either empty or has no token
+            token_type = token = None
+    else:
+        token_type = token = None
+
+    return token_type, token
+
+def validate_token(token):
+    s = Serializer(current_app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except (BadSignature, SignatureExpired):
+        return False
+    user = User.query.get(data['id'])
+    if user is None:
+        return False
+    g.current_user = user
+    return True
 
 def auth_required(f):
     @wraps(f)
