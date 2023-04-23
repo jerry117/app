@@ -84,19 +84,52 @@ class AuthTokenAPI(MethodView):
         token, expiration = generate_token(user)
 
         response = jsonify({
-            'access_token': token,
-            'token_type': 'Bearer',
-            'expires_in': expiration
+            'access_token': token, #access令牌
+            'token_type': 'Bearer', #令牌类型 不记名令牌
+            'expires_in': expiration #过期时间
         })
         response.headers['Cache-Control'] = 'no-store'
         response.headers['Pragma'] = 'no-cache'
         return response
+    
+class UserAPI(MethodView):
+    decorators = [auth_required]
 
+    def get(self):
+        return jsonify(user_schema(g.current_user))
+    
+class ItemsAPI(MethodView):
+    decorators = [auth_required]
+
+    def get(self):
+        """Get current user's all items."""
+        page = request.args.get('page', 1, type=int)
+        per_page = current_app.config['TODOISM_ITEM_PER_PAGE']
+        pagination = Item.query.with_parent(g.current_user).paginate(page, per_page)
+        items = pagination.items
+        current = url_for('.items', page=page, _external=True)
+        prev = None
+        if pagination.has_prev:
+            prev = url_for('.items', page=page - 1, _external=True)
+        next = None
+        if pagination.has_next:
+            next = url_for('.items', page=page + 1, _external=True)
+        return jsonify(items_schema(items, current, prev, next, pagination))
+
+    def post(self):
+        """Create new item."""
+        item = Item(body=get_item_body(), author=g.current_user)
+        db.session.add(item)
+        db.session.commit()
+        response = jsonify(item_schema(item))
+        response.status_code = 201
+        response.headers['Location'] = url_for('.item', item_id=item.id, _external=True)
+        return response
     
 api_v1.add_url_rule('/', view_func=IndexAPI.as_view('index'), methods=['GET'])
 api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
-# api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
-# api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
-# api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'), methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
+api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
+api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'), methods=['GET', 'PUT', 'PATCH', 'DELETE'])
 # api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'), methods=['GET'])
 # api_v1.add_url_rule('/user/items/completed', view_func=CompletedItemsAPI.as_view('completed_items'), methods=['GET', 'DELETE'])

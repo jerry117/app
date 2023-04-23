@@ -47,6 +47,7 @@ def auth_required(f):
         # case it is configured to forward those to the application, we
         # need to ignore authentication headers and let the request through
         # to avoid unwanted interactions with CORS.
+        # 因为在CORS交互中的事先请求（Pre-flight Request）会使用OPTIONS方法 发送请求，所以我们只在OPTIONS方法之外的请求中验证令牌。
         if request.method != 'OPTIONS':
             if token_type is None or token_type.lower() != 'bearer':
                 return api_abort(400, 'The token type must be bearer.')
