@@ -122,7 +122,7 @@ class ItemsAPI(MethodView):
         db.session.add(item)
         db.session.commit()
         response = jsonify(item_schema(item))
-        response.status_code = 201
+        response.status_code = 201 #表示已经创建了
         response.headers['Location'] = url_for('.item', item_id=item.id, _external=True)
         return response
     

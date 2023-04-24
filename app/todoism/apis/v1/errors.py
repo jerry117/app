@@ -24,3 +24,7 @@ def token_missing():
 
 class ValidationError(ValueError):
     pass
+
+@api_v1.errorhandler(ValidationError)
+def validation_error(e):
+    return api_abort(400, e.args[0])
