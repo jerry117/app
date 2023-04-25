@@ -126,10 +126,52 @@ class ItemsAPI(MethodView):
         response.headers['Location'] = url_for('.item', item_id=item.id, _external=True)
         return response
     
+class ActiveItemsAPI(MethodView):
+    decorators = [auth_required]
+
+    def get(self):
+        """Get current user's active items."""
+        page = request.args.get('page', 1, type=int)
+        pagination = Item.query.with_parent(g.current_user).filter_by(done=False).paginate(
+            page, per_page=current_app.config['TODOISM_ITEM_PER_PAGE'])
+        items = pagination.items
+        current = url_for('.items', page=page, _external=True)
+        prev = None
+        if pagination.has_prev:
+            prev = url_for('.active_items', page=page - 1, _external=True)
+        next = None
+        if pagination.has_next:
+            next = url_for('.active_items', page=page + 1, _external=True)
+        return jsonify(items_schema(items, current, prev, next, pagination))
+    
+class CompletedItemsAPI(MethodView):
+    decorators = [auth_required]
+
+    def get(self):
+        """Get current user's completed items."""
+        page = request.args.get('page', 1, type=int)
+        pagination = Item.query.with_parent(g.current_user).filter_by(done=True).paginate(
+            page, per_page=current_app.config['TODOISM_ITEM_PER_PAGE'])
+        items = pagination.items
+        current = url_for('.items', page=page, _external=True)
+        prev = None
+        if pagination.has_prev:
+            prev = url_for('.completed_items', page=page - 1, _external=True)
+        next = None
+        if pagination.has_next:
+            next = url_for('.completed_items', page=page + 1, _external=True)
+        return jsonify(items_schema(items, current, prev, next, pagination))
+
+    def delete(self):
+        """Clear current user's completed items."""
+        Item.query.with_parent(g.current_user).filter_by(done=True).delete()
+        db.session.commit()  # TODO: is it better use for loop?
+        return '', 204
+    
 api_v1.add_url_rule('/', view_func=IndexAPI.as_view('index'), methods=['GET'])
 api_v1.add_url_rule('/oauth/token', view_func=AuthTokenAPI.as_view('token'), methods=['POST'])
 api_v1.add_url_rule('/user', view_func=UserAPI.as_view('user'), methods=['GET'])
 api_v1.add_url_rule('/user/items', view_func=ItemsAPI.as_view('items'), methods=['GET', 'POST'])
 api_v1.add_url_rule('/user/items/<int:item_id>', view_func=ItemAPI.as_view('item'), methods=['GET', 'PUT', 'PATCH', 'DELETE'])
-# api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'), methods=['GET'])
-# api_v1.add_url_rule('/user/items/completed', view_func=CompletedItemsAPI.as_view('completed_items'), methods=['GET', 'DELETE'])
+api_v1.add_url_rule('/user/items/active', view_func=ActiveItemsAPI.as_view('active_items'), methods=['GET'])
+api_v1.add_url_rule('/user/items/completed', view_func=CompletedItemsAPI.as_view('completed_items'), methods=['GET', 'DELETE'])

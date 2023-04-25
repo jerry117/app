@@ -61,6 +61,11 @@ class BaseConfig(object):
     DROPZONE_MAX_FILES = 30
     DROPZONE_ENABLE_CSRF = True
 
+    TODOISM_LOCALES = ['en_US', 'zh_Hans_CN']
+    TODOISM_ITEM_PER_PAGE = 20
+
+    BABEL_DEFAULT_LOCALE = TODOISM_LOCALES[0]
+
     MAX_CONTENT_LENGTH = 3 * 1024 * 1024  # file size exceed to 3 Mb will return a 413 error response.
 
 class DevelopmentConfig(BaseConfig):
