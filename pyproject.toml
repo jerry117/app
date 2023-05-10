@@ -50,6 +50,7 @@ dependencies = [
     "flask-babel==2.0.0",
     "flask-socketio>=5.3.3",
     "eventlet>=0.33.3",
+    "flask-oauthlib>=0.9.6",
 ]
 requires-python = ">=3.8"
 license = {text = "MIT"}

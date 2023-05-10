@@ -4,10 +4,10 @@ import click
 from flask import Flask, render_template
 from flask_wtf.csrf import CSRFError
 
-from app.catchat.bp.admin import admin_bp
-from app.catchat.bp.auth import auth_bp
-from app.catchat.bp.chat import chat_bp
-from app.catchat.bp.oauth import oauth_bp
+from app.catchat.bp.admin import admin
+from app.catchat.bp.auth import auth
+from app.catchat.bp.chat import chat
+from app.catchat.bp.oauth import oauth
 from app.catchat.extensions import db, login_manager, csrf, socketio, moment, oauth
 from app.catchat.models import User, Message
 from app.catchat.settings import config
@@ -37,10 +37,10 @@ def register_extensions(app):
     oauth.init_app(app)
 
 def register_blueprints(app):
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(oauth_bp)
-    app.register_blueprint(chat_bp)
-    app.register_blueprint(admin_bp)
+    app.register_blueprint(auth)
+    app.register_blueprint(oauth)
+    app.register_blueprint(chat)
+    app.register_blueprint(admin)
 
 def register_errors(app):
     @app.errorhandler(400)

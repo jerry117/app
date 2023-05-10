@@ -86,6 +86,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "cachelib"
+version = "0.10.2"
+requires_python = ">=3.7"
+summary = "A collection of cache libraries in the same API interface."
+
+[[package]]
 name = "certifi"
 version = "2022.12.7"
 requires_python = ">=3.6"
@@ -365,6 +371,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "flask-oauthlib"
+version = "0.9.6"
+summary = "OAuthlib for Flask"
+dependencies = [
+    "Flask",
+    "cachelib",
+    "oauthlib!=2.0.3,!=2.0.4,!=2.0.5,<3.0.0,>=1.1.2",
+    "requests-oauthlib<1.2.0,>=0.6.2",
+]
+
+[[package]]
 name = "flask-socketio"
 version = "5.3.3"
 requires_python = ">=3.6"
@@ -501,6 +518,11 @@ requires_python = ">=3.7"
 summary = "multidict implementation"
 
 [[package]]
+name = "oauthlib"
+version = "2.1.0"
+summary = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
+
+[[package]]
 name = "packaging"
 version = "23.0"
 requires_python = ">=3.7"
@@ -601,6 +623,16 @@ dependencies = [
     "charset-normalizer<4,>=2",
     "idna<4,>=2.5",
     "urllib3<1.27,>=1.21.1",
+]
+
+[[package]]
+name = "requests-oauthlib"
+version = "1.1.0"
+requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+summary = "OAuthlib authentication support for Requests."
+dependencies = [
+    "oauthlib<3.0.0,>=2.1.0",
+    "requests>=2.0.0",
 ]
 
 [[package]]
@@ -722,7 +754,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:d0f801d33cafad24b3a8aa8a210030a362ea9d1ddfb55b42eac5abe7da6c3690"
+content_hash = "sha256:4012396eab5885bc8089c9f585d996c9a29a16bfb60611a46e9a802868e99724"
 
 [metadata.files]
 "aiohttp 3.8.4" = [
@@ -934,6 +966,10 @@ content_hash = "sha256:d0f801d33cafad24b3a8aa8a210030a362ea9d1ddfb55b42eac5abe7d
 "bootstrap-flask 2.2.0" = [
     {url = "https://files.pythonhosted.org/packages/28/db/2154891a7775b7f36ddd27ed494b4fbf7641a91c0db89ff8eb7954981a24/Bootstrap-Flask-2.2.0.tar.gz", hash = "sha256:40f3bf7d5802e429b2fca286a548bdde816c1185c28aa8df3051cff35cd05cac"},
     {url = "https://files.pythonhosted.org/packages/40/46/ea38e084a3ad2c69e878864cca69a887126900a1f7760252a1eb4be7406a/Bootstrap_Flask-2.2.0-py2.py3-none-any.whl", hash = "sha256:b1fd9be1d22f4f1714a8a596ea2a4a5db9c957ba6db4aea4cb38ae90555233f3"},
+]
+"cachelib 0.10.2" = [
+    {url = "https://files.pythonhosted.org/packages/70/0b/e7647e072ff60997d69517072145ef56898278afda7deff7cc6858b1541f/cachelib-0.10.2.tar.gz", hash = "sha256:593faeee62a7c037d50fc835617a01b887503f972fb52b188ae7e50e9cb69740"},
+    {url = "https://files.pythonhosted.org/packages/8c/83/449fb201dd5a6536bb022eb50ddc58da9e3d5cdf674c12df2f6dd46bd52f/cachelib-0.10.2-py3-none-any.whl", hash = "sha256:42d49f2fad9310dd946d7be73d46776bcd4d5fde4f49ad210cfdd447fbdfc346"},
 ]
 "certifi 2022.12.7" = [
     {url = "https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
@@ -1257,6 +1293,10 @@ content_hash = "sha256:d0f801d33cafad24b3a8aa8a210030a362ea9d1ddfb55b42eac5abe7d
 "flask-moment 1.0.5" = [
     {url = "https://files.pythonhosted.org/packages/5b/db/3fbc023b087ec95d04991bd053e92702b92a24968cc9935598a8f7045832/Flask-Moment-1.0.5.tar.gz", hash = "sha256:33307ecd4af8290b6df6a9828ff55ac0977d0567817f9bc0f69803d22ed2b55c"},
     {url = "https://files.pythonhosted.org/packages/e9/eb/81f428a502f2e1beee710ed3937d05e6c1a64e192a2dd7d7ccb12c96f8f5/Flask_Moment-1.0.5-py3-none-any.whl", hash = "sha256:6e7b3eef89e2137bbbee975405f241a68a44edfa34bf052c92d84364992adca6"},
+]
+"flask-oauthlib 0.9.6" = [
+    {url = "https://files.pythonhosted.org/packages/09/d8/f272aae56f12cf5f2f84ca7340e17be7f2e5e880f914838afb1b3ef045c1/Flask_OAuthlib-0.9.6-py3-none-any.whl", hash = "sha256:a5c3b62959aa1922470a62b6ebf4273b75f1c29561a7eb4a69cde85d45a1d669"},
+    {url = "https://files.pythonhosted.org/packages/75/f2/54a551d00a39dac9aa58d97b45e3c05051e7eea8ed686e4b6be91fc075a6/Flask-OAuthlib-0.9.6.tar.gz", hash = "sha256:5bb79c8a8e670c2eb4cb553dfc3283b6c8d1202f674934676dc173cee94fe39c"},
 ]
 "flask-socketio 5.3.3" = [
     {url = "https://files.pythonhosted.org/packages/b8/34/f736540efa8a2f3587a9019639ca2787d0f663479eb554b230fdb5a72bc9/Flask-SocketIO-5.3.3.tar.gz", hash = "sha256:8f47762dd1b76916cbc01f4f8661dd4670dbeb418ca0e1aaedab909b85efee5d"},
@@ -1611,6 +1651,10 @@ content_hash = "sha256:d0f801d33cafad24b3a8aa8a210030a362ea9d1ddfb55b42eac5abe7d
     {url = "https://files.pythonhosted.org/packages/fc/5b/0a4205a1248fb152f596a03c971c6ef1585d0c98e56b6886dc35d084e366/multidict-6.0.4-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:7d18748f2d30f94f498e852c67d61261c643b349b9d2a581131725595c45ec6c"},
     {url = "https://files.pythonhosted.org/packages/fe/0c/8469202f8f4b0e65816f91c3febc4bda7316c995b59ecdf3b15c574f7a24/multidict-6.0.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cc8e1d0c705233c5dd0c5e6460fbad7827d5d36f310a0fadfd45cc3029762258"},
 ]
+"oauthlib 2.1.0" = [
+    {url = "https://files.pythonhosted.org/packages/df/5f/3f4aae7b28db87ddef18afed3b71921e531ca288dc604eb981e9ec9f8853/oauthlib-2.1.0.tar.gz", hash = "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162"},
+    {url = "https://files.pythonhosted.org/packages/e6/d1/ddd9cfea3e736399b97ded5c2dd62d1322adef4a72d816f1ed1049d6a179/oauthlib-2.1.0-py2.py3-none-any.whl", hash = "sha256:d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"},
+]
 "packaging 23.0" = [
     {url = "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
     {url = "https://files.pythonhosted.org/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
@@ -1881,6 +1925,10 @@ content_hash = "sha256:d0f801d33cafad24b3a8aa8a210030a362ea9d1ddfb55b42eac5abe7d
 "requests 2.28.2" = [
     {url = "https://files.pythonhosted.org/packages/9d/ee/391076f5937f0a8cdf5e53b701ffc91753e87b07d66bae4a09aa671897bf/requests-2.28.2.tar.gz", hash = "sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf"},
     {url = "https://files.pythonhosted.org/packages/d2/f4/274d1dbe96b41cf4e0efb70cbced278ffd61b5c7bb70338b62af94ccb25b/requests-2.28.2-py3-none-any.whl", hash = "sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa"},
+]
+"requests-oauthlib 1.1.0" = [
+    {url = "https://files.pythonhosted.org/packages/62/49/88b3b9019c649f63e722208dc540dbcb144c6f53e24bf438117bec8e64dc/requests-oauthlib-1.1.0.tar.gz", hash = "sha256:eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"},
+    {url = "https://files.pythonhosted.org/packages/74/d2/91fd85529288418f81e9ed9347b1c548df09327059515cac39e1727b349f/requests_oauthlib-1.1.0-py2.py3-none-any.whl", hash = "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61"},
 ]
 "rlp 3.0.0" = [
     {url = "https://files.pythonhosted.org/packages/20/63/8b5205a7f9e2792137676c2d29bd6bc9cbecca95015a55ed54d6dd02f3f6/rlp-3.0.0.tar.gz", hash = "sha256:63b0465d2948cd9f01de449d7adfb92d207c1aef3982f20310f8009be4a507e8"},
